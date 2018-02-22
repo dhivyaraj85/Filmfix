@@ -1,9 +1,7 @@
 <?php
 session_start();
-if (isset($_POST["form-username"])){
-$_SESSION["user_id"]= $_POST["form-username"];
-}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,23 +39,25 @@ $_SESSION["user_id"]= $_POST["form-username"];
         </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="home.php">Home
-                           <span class="sr-only">(current)</span>
-                         </a>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="home.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="collaborative.php">CF Recommendations </a>
+                        <a class="nav-link" href="collaborative.php">CF Recommendations 
+                        
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="content.php">Content Recommendations</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="cooccurance.php">Co-occurance </a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="cooccurance.php">Co-occurance  
+                        <span class="sr-only">(current)</span> </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item ">
                         <a class="nav-link" href="hybrid.php">Hybrid Recommendations </a>
                     </li>
+                    
                 </ul>
             </div>
             <div>
@@ -70,24 +70,10 @@ $_SESSION["user_id"]= $_POST["form-username"];
 
     <!-- Page Content -->
     <div class="container">
-
-        <!-- Jumbotron Header -->
-        <header class="jumbotron my-4">
-            <h3 class="display-3">Personalized Movie Recommendation System!</h3>
-            <p class="lead">Rate and View your Movie Recommendations.</p>
-           <!--  <?php echo "User id : " . $_SESSION["user_id"]; ?><br> -->
-            
-        </header>
-
-    
-
-
-
         <!-- Page Features -->
         <div class="row text-center">
         
 <?php
-
 $servername = "us-cdbr-iron-east-05.cleardb.net";
 $username = "ba0dd49e70befd";
 $password = "e8e0885d";
