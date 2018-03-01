@@ -40,24 +40,22 @@ session_start();
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item ">
-                        <a class="nav-link" href="home.php">Home
-                           
-                         </a>
+                        <a class="nav-link" href="home.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="collaborative.php">CF Recommendations 
                         
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="content.php">Content Recommendations</a>
+                    </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="content.php">Content Recommendations
+                        <a class="nav-link" href="cooccurance.php">Co-occurance  
                         <span class="sr-only">(current)</span> </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="cooccurance.php">Co-occurance </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="hybrid.php">Hybrid Recommendations</a>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="hybrid.php">Hybrid Recommendations </a>
                     </li>
                     
                 </ul>
@@ -72,7 +70,6 @@ session_start();
 
     <!-- Page Content -->
     <div class="container">
-
         <!-- Page Features -->
         <div class="row text-center">
         
@@ -94,7 +91,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-$sql = "select movieid1,movieid2,movieid3,movieid4,movieid5,movieid6,movieid7,movieid8,movieid9,movieid10 from content_reco where userid=".$_SESSION["user_id"].";";
+$sql = "select movieid1,movieid2,movieid3,movieid4,movieid5 from collab_reco where USERID=".$_SESSION["user_id"]." union all select  movieid1,movieid2,movieid3,movieid4,movieid5  from content_reco_new_25 where userid=".$_SESSION["user_id"].";";
 
 $result = $conn->query($sql);
 $count=0;
@@ -115,16 +112,9 @@ if ($result->num_rows > 0) {
         $movie_id3 = round($row["movieid3"]);
         $movie_id4 = round($row["movieid4"]);
         $movie_id5 = round($row["movieid5"]);
-        $movie_id6 = round($row["movieid6"]);
-        $movie_id7 = round($row["movieid7"]);
-        $movie_id8 = round($row["movieid8"]);
-        $movie_id9 = round($row["movieid9"]);
-        $movie_id10 = round($row["movieid10"]);
-
        
        
-        array_push($movie_arrays, $movie_id1,$movie_id2,$movie_id3,$movie_id4,$movie_id5,
-        $movie_id6,$movie_id7,$movie_id8,$movie_id9,$movie_id10);
+        array_push($movie_arrays, $movie_id1,$movie_id2,$movie_id3,$movie_id4,$movie_id5);
        
         
         $movie_id_array = array_unique($movie_arrays);
@@ -139,12 +129,6 @@ if ($result->num_rows > 0) {
 
                 while($sub_row = $sub_result->fetch_assoc() ){
                     $imdbId = $sub_row["imdbId"];
-                    if (strlen($imdbId)==5){
-                        $imdbId= "00".$imdbId;
-                    }
-                    else if(strlen($imdbId)==6){
-                        $imdbId= "0".$imdbId;
-                    }
                     
                     $service_url = 'http://www.omdbapi.com/?i=tt'.$imdbId.'&apikey=dd8cd3ff';
                     

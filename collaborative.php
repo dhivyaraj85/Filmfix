@@ -93,7 +93,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-$sql = "select movieid1,movieid2,movieid3,movieid4,movieid5,movieid6,movieid7,movieid8,movieid9,movieid10 from collab_reco where USERID=".$_SESSION["user_id"].";";
+$sql = "select movieid1,movieid2,movieid3,movieid4,movieid5,movieid6,movieid7,movieid8,movieid9,movieid10 from collaborative where USERID=".$_SESSION["user_id"].";";
 
 $result = $conn->query($sql);
 $count=0;
@@ -131,12 +131,18 @@ if ($result->num_rows > 0) {
     //print_r($movie_id_array);
 
         foreach ($movie_id_array as &$movie) {
-            $sql_subquery = "select imdbId from LINKS where movieId=".$movie.";";
+            $sql_subquery = "select imdbId , tmdbId from LINKS where movieId=".$movie.";";
             $sub_result = $conn->query($sql_subquery);
             if ($sub_result->num_rows > 0){
 
                 while($sub_row = $sub_result->fetch_assoc() ){
                     $imdbId = $sub_row["imdbId"];
+                    if (strlen($imdbId)==5){
+                        $imdbId= "00".$imdbId;
+                    }
+                    else if(strlen($imdbId)==6){
+                        $imdbId= "0".$imdbId;
+                    }
                     
                     $service_url = 'http://www.omdbapi.com/?i=tt'.$imdbId.'&apikey=dd8cd3ff';
                     
@@ -155,14 +161,13 @@ if ($result->num_rows > 0) {
                         die('error occured: ' . $decoded->response->errormessage);
                     }
                     
-                    //echo "<H2>Title:</H2> ";
-                    //var_export($decoded->Title);
-                    //echo "<br>";
-                    //echo "<h4>Overview</h4>";
-                    //var_export($decoded->Plot);
-                    //echo "<br>";
-                    //echo "<br>";
-                    //echo "<br>";
+ 
+                    if ($decoded->Response=="False"){
+                        echo "<h1> No ID </h1>";
+                        $tmdbId = $sub_row["tmdbId"];
+                        $service_url = 'https://api.themoviedb.org/3/movie/'.$tmdbId.'?api_key=aab43cfd89dea8cff2b0a29101c385af';
+                    }
+                    else{
                     $poster_path = var_export($decoded->Poster, True);
                     //echo $poster_path;
                     $poster_base_url = str_replace("'","",$poster_path);
@@ -180,6 +185,10 @@ if ($result->num_rows > 0) {
                     echo "</div>";
                echo "</div>";
 
+                    }
+
+
+               // end of while loop for select
                 }
 
             }

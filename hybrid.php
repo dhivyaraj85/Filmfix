@@ -90,7 +90,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-$sql = "select movieid1,movieid2,movieid3,movieid4,movieid5 from collab_reco where USERID=".$_SESSION["user_id"]." union all select  movieid1,movieid2,movieid3,movieid4,movieid5  from content_reco_new_25 where userid=".$_SESSION["user_id"].";";
+$sql = "select movieid1,movieid2,movieid3,movieid4,movieid5 from collaborative where USERID=".$_SESSION["user_id"]." union all select  movieid1,movieid2,movieid3,movieid4,movieid5  from content_reco where userid=".$_SESSION["user_id"].";";
 
 $result = $conn->query($sql);
 $count=0;
@@ -128,7 +128,12 @@ if ($result->num_rows > 0) {
 
                 while($sub_row = $sub_result->fetch_assoc() ){
                     $imdbId = $sub_row["imdbId"];
-                    
+                    if (strlen($imdbId)==5){
+                        $imdbId= "00".$imdbId;
+                    }
+                    else if(strlen($imdbId)==6){
+                        $imdbId= "0".$imdbId;
+                    }
                     $service_url = 'http://www.omdbapi.com/?i=tt'.$imdbId.'&apikey=dd8cd3ff';
                     
                     //echo $service_url;
