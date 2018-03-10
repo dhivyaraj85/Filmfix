@@ -83,6 +83,7 @@ function exportTableToCSV(filename , userId) {
     }
 
     // Download CSV file
+   
     downloadCSV(csv.join("\n"), filename);
     console.log(csv);
     //Movie Id,Title,Rating,UserId
