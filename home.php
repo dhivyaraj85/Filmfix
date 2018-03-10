@@ -75,8 +75,7 @@ $_SESSION["user_id"]= $_POST["form-username"];
         <header class="jumbotron my-4">
             <h3 class="display-3">Personalized Movie Recommendation System!</h3>
             <p class="lead">Rate and View your Movie Recommendations.</p>
-           <!--  <?php echo "User id : " . $_SESSION["user_id"]; ?><br> -->
-            
+           <?php echo "User id : " . $_SESSION["user_id"]; ?><br>  
         </header>
 
     
