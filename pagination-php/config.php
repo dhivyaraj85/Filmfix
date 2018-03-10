@@ -12,7 +12,7 @@ $conn       = new mysqli( 'us-cdbr-iron-east-05.cleardb.net', 'ba0dd49e70befd', 
 $limit      = ( isset( $_GET['limit'] ) ) ? $_GET['limit'] : 25;
 $page       = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1;
 $links      = ( isset( $_GET['links'] ) ) ? $_GET['links'] : 7;
-$query = "SELECT * FROM movies ";
+$query = "select * from movies";
 
 require_once 'paginator.class.php';
 $paginator  = new Paginator($conn, $query);
