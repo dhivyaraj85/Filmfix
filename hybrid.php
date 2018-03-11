@@ -78,6 +78,15 @@ $username = "ba0dd49e70befd";
 $password = "e8e0885d";
 $dbname = "heroku_54c3b520208a1ef";
 
+
+// random 10 column name generator for not rated movies by user id 
+$numbers = range(1, 50);
+shuffle($numbers);
+$not_rated_movieid = " union all  select movieid".$numbers[0]." ,movieid".$numbers[1]." ,movieid".$numbers[2]." ,movieid".$numbers[3].
+" ,movieid".$numbers[4]." ,movieid".$numbers[5]." ,movieid".$numbers[6]." ,movieid".$numbers[7].
+" ,movieid".$numbers[8]." ,movieid".$numbers[9]. " from not_rated_reco where USERID =".$_SESSION["user_id"];
+
+
 //$servername = "127.0.0.1";
 //$username = "root";
 //$password = "password";
@@ -90,7 +99,11 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-$sql = "select movieid1,movieid2,movieid3,movieid4,movieid5 from collaborative where USERID=".$_SESSION["user_id"]." union all select  movieid1,movieid2,movieid3,movieid4,movieid5  from content_reco where userid=".$_SESSION["user_id"].";";
+$sql = " select movieid1,movieid2,movieid3,movieid4,movieid5,movieid6,movieid7,movieid8,movieid9,movieid10 from collab_reco where 
+USERID=".$_SESSION["user_id"]." union all select  movieid1,movieid2,movieid3,movieid4,movieid5,movieid6,movieid7,movieid8,movieid9,movieid10   from content_reco where 
+userid= ".$_SESSION["user_id"]."  union all select movieid1,movieid2,movieid3,movieid4,movieid5,movieid6,movieid7,movieid8,movieid9,movieid10 from cooccurence_reco_25 where 
+USERID=".$_SESSION["user_id"].$not_rated_movieid.";";
+//echo $sql;
 
 $result = $conn->query($sql);
 $count=0;
@@ -111,17 +124,33 @@ if ($result->num_rows > 0) {
         $movie_id3 = round($row["movieid3"]);
         $movie_id4 = round($row["movieid4"]);
         $movie_id5 = round($row["movieid5"]);
+        $movie_id6 = round($row["movieid6"]);
+        $movie_id7 = round($row["movieid7"]);
+        $movie_id8 = round($row["movieid8"]);
+        $movie_id9 = round($row["movieid9"]);
+        $movie_id10 = round($row["movieid10"]);
        
        
-        array_push($movie_arrays, $movie_id1,$movie_id2,$movie_id3,$movie_id4,$movie_id5);
+        array_push($movie_arrays, $movie_id1,$movie_id2,$movie_id3,$movie_id4,$movie_id5,
+        $movie_id6,$movie_id7,$movie_id8,$movie_id9,$movie_id10);
        
         
         $movie_id_array = array_unique($movie_arrays);
         
     }
+    //print_r($movie_arrays);
     //print_r($movie_id_array);
+    //echo(count($movie_arrays))."</br>";
+    //echo(count($movie_id_array));
+    //echo"</br>";
+    shuffle($movie_id_array);
+    //print_r($movie_id_array);
+    //echo"</br>";
+    $movie_id_arrays = array_slice($movie_id_array, 0, 20);
+    //print_r($movie_id_arrays);
 
-        foreach ($movie_id_array as &$movie) {
+        foreach ($movie_id_arrays as &$movie) {
+            //echo $movie;
             $sql_subquery = "select imdbId from LINKS where movieId=".$movie.";";
             $sub_result = $conn->query($sql_subquery);
             if ($sub_result->num_rows > 0){

@@ -49,6 +49,7 @@ function exportTableToCSV(filename , userId) {
     k=-1;
     for (var i = 0; i < rows.length; i++) {
         var row = [], cols = rows[i].querySelectorAll("td,th");
+        row.push(userId);
         rating = document.querySelectorAll(".rating");
         len = document.querySelectorAll(".rating").length;
         //console.log(len);
@@ -56,8 +57,8 @@ function exportTableToCSV(filename , userId) {
         for (var j = 0; j < cols.length ; j++) {
             row.push(cols[j].innerText);  
         }
-        row.push("UserId");
-        csv.push(row.join(",")); 
+        //row.push("UserId");
+        //csv.push(row.join(",")); 
        } 
        else if (rating[k].value){
         for (var j = 0; j < cols.length; j++) {
@@ -70,13 +71,13 @@ function exportTableToCSV(filename , userId) {
                 row.push(rating[k].value);
                 
             }
-            else{
+            else if (j==0){
             row.push(cols[j].innerText);
             }
             console.log( row );
             
         }
-        row.push(userId);
+       
         csv.push(row.join(",")); 
        }
        k++;       
@@ -91,7 +92,7 @@ function exportTableToCSV(filename , userId) {
     for (i=1;i<csv.length;i++){
         console.log(csv[i]);
     }
-    saveTodb();
+    //saveTodb();
     document.cookie = "rating_data = " +csv;
     console.log(document.cookie);
 }

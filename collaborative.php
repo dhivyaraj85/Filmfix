@@ -93,7 +93,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-$sql = "select movieid1,movieid2,movieid3,movieid4,movieid5,movieid6,movieid7,movieid8,movieid9,movieid10 from collaborative where USERID=".$_SESSION["user_id"].";";
+$sql = "select movieid1,movieid2,movieid3,movieid4,movieid5,movieid6,movieid7,movieid8,movieid9,movieid10 from collab_reco where USERID=".$_SESSION["user_id"].";";
 
 $result = $conn->query($sql);
 $count=0;

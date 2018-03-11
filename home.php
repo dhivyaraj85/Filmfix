@@ -105,7 +105,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-$sql = "select movieid1,movieid2,movieid3,movieid4,movieid5 from collaborative where USERID=".$_SESSION["user_id"]." union all select  movieid1,movieid2,movieid3,movieid4,movieid5  from content_reco where userid=".$_SESSION["user_id"].";";
+$sql = "select movieid1,movieid2,movieid3,movieid4,movieid5 from collab_reco where USERID=".$_SESSION["user_id"]." union all select  movieid1,movieid2,movieid3,movieid4,movieid5  from content_reco where userid=".$_SESSION["user_id"].";";
 
 $result = $conn->query($sql);
 $count=0;
