@@ -27,7 +27,11 @@ $sql = "INSERT INTO new_users (user_id) VALUES (".$_SESSION["new_user_id"] .")";
 if ($conn->query($sql) === TRUE) {
     echo "<h1 style='text-align:center' >Welcome to Filmfix</h1>";
 } else {
+   
     echo "Error: " . $sql . "<br>" . $conn->error;
+    header("Location: https://secret-island-17790.herokuapp.com/"); /* Redirect browser */
+    exit();
+    
 }
 
 $conn->close();
@@ -95,21 +99,6 @@ function exportTableToCSV(filename , userId) {
     //saveTodb();
     document.cookie = "rating_data = " +csv;
     console.log(document.cookie);
-}
-
-function saveTodb(){
-var mysql = require('mysql');
-
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "password"
-});
-
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-});
 }
 
 
