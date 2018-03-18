@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (isset($_POST["form-new-username"])){
 $_SESSION["new_user_id"]= $_POST["form-new-username"];
 }
@@ -19,7 +20,7 @@ $sql = "INSERT INTO new_users (user_id) VALUES (".$_SESSION["new_user_id"] .")";
 
 if ($conn->query($sql) === TRUE) {
     header("Location: https://secret-island-17790.herokuapp.com/pagination-php/index.php");
-    exit();
+   
 } else {
    
     echo "Error: " . $sql . "<br>" . $conn->error;
