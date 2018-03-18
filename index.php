@@ -148,7 +148,7 @@
     <script>
         function new_user() {
             
-            document.forms['button_click'].action = 'pagination-php/index.php';
+            document.forms['button_click'].action = 'pagination-php/signup.php';
             document.forms['button_click'].method ='POST'; 
             document.forms['button_click'].submit();
             
