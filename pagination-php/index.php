@@ -1,9 +1,6 @@
 <?php
-include "config.php";
 session_start();
-include 'signup.php';
-echo "--";
-echo $new_user_id;
+include "config.php";
 ?>
 
 <!DOCTYPE html>
@@ -102,7 +99,14 @@ function downloadCSV(csv, filename) {
     <div class="container">
         <h1 style='text-align:center' >Welcome to Filmfix</h1>
         <h1 style="text-align:center">Rate movies to get Personalized Recommendations!!</h1>
-        <?php echo "New User Id : " . $_SESSION["new_user_id"]; ?><br> 
+        <?php 
+        session_start();
+        echo $_SESSION["user_id"];
+        
+        echo "New User Id : " . $_SESSION["new_user_id"]; 
+        
+        
+        ?><br> 
         <table class="table">
         <thead>
                         <tr>

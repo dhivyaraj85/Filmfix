@@ -2,7 +2,6 @@
 session_start();
 if (isset($_POST["form-new-username"])){
 $_SESSION["new_user_id"]= $_POST["form-new-username"];
-$new_user_id = $_POST["form-new-username"];
 }
 $servername = "us-cdbr-iron-east-05.cleardb.net";
 $username = "ba0dd49e70befd";
@@ -20,6 +19,8 @@ if ($conn->connect_error) {
 $sql = "INSERT INTO new_users (user_id) VALUES (".$_SESSION["new_user_id"] .")";
 
 if ($conn->query($sql) === TRUE) {
+    $user_id = $_SESSION["new_user_id"];
+    $_SESSION["user_id"] = $user_id ;
     header("Location: https://secret-island-17790.herokuapp.com/pagination-php/index.php");
    
 } else {
