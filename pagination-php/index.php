@@ -103,7 +103,7 @@ function downloadCSV(csv, filename) {
         session_start();
         echo $_SESSION["user_id"];
         echo "---";
-        echo "New User Id : " . $_SESSION["new_user_id"]; 
+        echo "New User Id  --: " . $_SESSION["new_user_id"]; 
         
         
         ?><br> 
