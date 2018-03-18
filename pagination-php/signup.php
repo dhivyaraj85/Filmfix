@@ -2,6 +2,7 @@
 session_start();
 if (isset($_POST["form-new-username"])){
 $_SESSION["new_user_id"]= $_POST["form-new-username"];
+$new_user_id = $_POST["form-new-username"];
 }
 $servername = "us-cdbr-iron-east-05.cleardb.net";
 $username = "ba0dd49e70befd";

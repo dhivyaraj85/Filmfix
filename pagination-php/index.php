@@ -1,9 +1,9 @@
 <?php
 include "config.php";
 session_start();
-if (isset($_POST["form-new-username"])){
-$_SESSION["new_user_id"]= $_POST["form-new-username"];
-}
+include 'signup.php';
+echo "--";
+echo $new_user_id;
 ?>
 
 <!DOCTYPE html>
