@@ -42,7 +42,6 @@ $_SESSION["user_id"]= $_POST["form-username"];
                 <ul class="navbar-nav ml-auto" >
                     <li class="nav-item active" style="margin-right: 15px">
                         <a class="nav-link" href="home.php">Home
-                           <span class="sr-only">(current)</span>
                          </a>
                     </li>
                     <li class="nav-item" style="margin-right: 15px">

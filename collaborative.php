@@ -39,13 +39,13 @@ session_start();
         </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto" >
-                    <li class="nav-item active" style="margin-right: 15px">
+                    <li class="nav-item" style="margin-right: 15px">
                         <a class="nav-link" href="home.php">Home
-                           <span class="sr-only">(current)</span>
                          </a>
                     </li>
-                    <li class="nav-item" style="margin-right: 15px">
+                    <li class="nav-item active" style="margin-right: 15px">
                         <a class="nav-link" href="collaborative.php">Collaborative Filtering </a>
+                        <span class="sr-only">(current)</span> </a>
                     </li>
                     <li class="nav-item" style="margin-right: 15px">
                         <a class="nav-link" href="content.php">Content Based</a>
