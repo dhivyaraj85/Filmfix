@@ -9,6 +9,24 @@ include "config.php";
     <meta charset="utf-8"/>
     <title>Filmfix</title>
     <link href="style.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Filmfix - Personalized Movie Recommendation System</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"> </script>
+    <link href="css/heroic-features.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+
 </head>
 <body>
 
@@ -101,11 +119,7 @@ function downloadCSV(csv, filename) {
         <h1 style="text-align:center">Rate movies to get Personalized Recommendations!!</h1>
         <?php 
         session_start();
-        echo $_SESSION["user_id"];
-        echo "---";
-        echo "New User Id  --: " . $_SESSION["new_user_id"]; 
-        
-        
+        echo "New User Id: " . $_SESSION["new_user_id"]; 
         ?><br> 
         <table class="table">
         <thead>
@@ -127,7 +141,7 @@ function downloadCSV(csv, filename) {
             </tbody>
         </table>
         <?php echo $paginator->createLinks($links , 'pagination pagination-sm'); ?> 
-        <button onclick="exportTableToCSV('new_rating.csv',<?php echo $_SESSION["new_user_id"]; ?>)"> Save ratings to CSV File</button>
+        <button  style="align:center;" class="btn btn-success btn-lg" onclick="exportTableToCSV('new_rating.csv',<?php echo $_SESSION["new_user_id"]; ?>)"> Save ratings to CSV File</button>
         <p id="demo"></p>
     </div>
 </body>
