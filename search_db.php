@@ -31,32 +31,31 @@ $_SESSION["user_id"]= $_POST["form-username"];
 
 <body>
 
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">Filmfix</a>
+            <a class="navbar-brand" href="#" style="margin-right: 40px" >Filmfix</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                <ul class="navbar-nav ml-auto" >
+                    <li class="nav-item active" style="margin-right: 15px">
                         <a class="nav-link" href="home.php">Home
                            <span class="sr-only">(current)</span>
                          </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="collaborative.php">CF Recommendations </a>
+                    <li class="nav-item" style="margin-right: 15px">
+                        <a class="nav-link" href="collaborative.php">Collaborative Filtering </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="content.php">Content Recommendations</a>
+                    <li class="nav-item" style="margin-right: 15px">
+                        <a class="nav-link" href="content.php">Content Based</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="cooccurance.php">Co-occurance </a>
+                    <li class="nav-item" style="margin-right: 15px">
+                        <a class="nav-link" href="cooccurance.php">Cooccurrence </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="hybrid.php">Hybrid Recommendations </a>
+                    <li class="nav-item" style="margin-right: 15px">
+                        <a class="nav-link" href="hybrid.php">Hybrid </a>
                     </li>
                 </ul>
             </div>

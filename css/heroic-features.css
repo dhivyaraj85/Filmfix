@@ -24,3 +24,7 @@ body {
     margin: 0px auto;
     float: none;
 }
+
+.nav-item {
+    margin-right: 15px;
+}
