@@ -141,8 +141,9 @@ if ($result->num_rows > 0) {
                     }
                     
                     $service_url = 'http://www.omdbapi.com/?i=tt'.$imdbId.'&apikey=dd8cd3ff';
-                    
-                    //echo $service_url;
+                    $imdb_url = "http://www.imdb.com/title/tt".$imdbId;
+
+                    //echo $imdb_url;
                     $curl = curl_init($service_url);
                     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
                     $curl_response = curl_exec($curl);
@@ -171,7 +172,9 @@ if ($result->num_rows > 0) {
                     //echo '<img src="'.$poster_base_url.'"/>';
                     echo "<div class='col-lg-3 col-md-6 mb-4'>";
                     echo "<div class='card'>";
+                      echo"<a href='".$imdb_url."' target='_blank'>";
                         echo "<img class='card-img-top' src='".$poster_base_url."' alt='' height='300'>";
+                        echo "</a>";
                         echo "<div class='card-body'>";
                             echo "<h4 class='card-title'>".$decoded->Title."</h4>";
                             echo "<p class='card-text'>".$decoded->Plot."</p>";
@@ -179,6 +182,7 @@ if ($result->num_rows > 0) {
                         echo "<div class='card-footer'>";
                             echo "<a href= class='btn btn-primary'>".$decoded->Ratings[0]->Value."</a>";
                         echo "</div>";
+                        
                     echo "</div>";
                echo "</div>";
 
