@@ -78,7 +78,7 @@ if __name__ == "__main__":
     #userRecs_2.printSchema()
     #userRecs_2.show()
 
-    # Import dataframe into MySQL
+    #Import dataframe into MySQL
     
     #userRecs_2.write.format('jdbc').options(url='jdbc:mysql://us-cdbr-iron-east-05.cleardb.net/heroku_54c3b520208a1ef?useServerPrepStmts=false&rewriteBatchedStatements=true', driver='com.mysql.jdbc.Driver',dbtable='collab_reco',user='ba0dd49e70befd',password='e8e0885d').mode('append').save()
 
