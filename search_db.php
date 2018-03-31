@@ -31,9 +31,8 @@ $_SESSION["user_id"]= $_POST["form-username"];
 
 <body>
 
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#" style="margin-right: 40px" >Filmfix</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +42,6 @@ $_SESSION["user_id"]= $_POST["form-username"];
                 <ul class="navbar-nav ml-auto" >
                     <li class="nav-item active" style="margin-right: 15px">
                         <a class="nav-link" href="home.php">Home
-                           <span class="sr-only">(current)</span>
                          </a>
                     </li>
                     <li class="nav-item" style="margin-right: 15px">
@@ -71,150 +69,82 @@ $_SESSION["user_id"]= $_POST["form-username"];
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Jumbotron Header -->
-        <header class="jumbotron my-4">
-            <h3 class="display-3">Personalized Movie Recommendation System!</h3>
-            <p class="lead">Rate and View your Movie Recommendations.</p>
-           <?php echo "User id : " . $_SESSION["user_id"]; ?><br>  
-        </header>
 
+<?php
+
+// php code to search data in mysql database and set it in input text
+
+if(isset($_POST['movie_name']))
+{
     
-
-
-
-        <!-- Page Features -->
-    <div class="row text-center">
-        
-    <form name="button_click" role="form" action="search_db.php" method="POST" class="login-form">
-    <div class="container">
-	<div class="row">
-        <div class="col-md-6">
-    		
-            <div id="custom-search-input">
-                <div class="input-group col-md-12">
-                    <input type="text" name="movie_name" class="form-control input-lg" placeholder="Search Movies" />
-                    <span class="input-group-btn" onclick="search_db();">
-                        <button class="btn btn-success btn-lg" type="button" onclick="search_db();">
-                            <i class="glyphicon glyphicon-search" onclick="search_db();" ></i>
-                        </button>
-                    </span>
-                </div>
-
-            </div>
-        </div>
-	</div>
-</div>
-</form>
-
-
-
-<script>
-        function search_db() {
-            
-            document.forms['button_click'].action = 'search_db.php';
-            document.forms['button_click'].method ='POST'; 
-            document.forms['button_click'].submit();
-            
-        }
-</script>  
-            
-
-<div class="container-fluid" style="margin-top:50px;">
-<?php 
-// connect to mysql
+    $movie_name = $_POST['movie_name'];
+    
+    // connect to mysql
     $servername = "us-cdbr-iron-east-05.cleardb.net";
     $username = "ba0dd49e70befd";
     $password = "e8e0885d";
     $dbname = "heroku_54c3b520208a1ef";
-   
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    } 
+    $connect = mysqli_connect( $servername, $username ,  $password , $dbname);
+    
     // mysql search query
-    $sql = "select movieid1,movieid2,movieid3,movieid4,movieid5, movieid6,movieid7,movieid8,movieid9,movieid10 from not_rated_reco where userid=".$_SESSION["user_id"].";";
-    //$query = "select movieId, Title  from movies where title like '%".$movie_name."%';";
+    $query = "select movieId, Title  from movies where title like '%".$movie_name."%';";
     //echo  $query;
-    $result = $conn->query($sql);
+    $result = mysqli_query($connect, $query);
     
-    $movie_arrays =array ();
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc() ) {
-            $movie_id1 = round($row["movieid1"]);
-            $movie_id2 = round($row["movieid2"]);
-            $movie_id3 = round($row["movieid3"]);
-            $movie_id4 = round($row["movieid4"]);
-            $movie_id5 = round($row["movieid5"]);
-            $movie_id6 = round($row["movieid6"]);
-            $movie_id7 = round($row["movieid7"]);
-            $movie_id8 = round($row["movieid8"]);
-            $movie_id9 = round($row["movieid9"]);
-            $movie_id10 = round($row["movieid10"]);
+    // if id exist 
+    // show data in inputs
+    if(mysqli_num_rows($result) > 0)
+    {
 
-            array_push($movie_arrays, $movie_id1,$movie_id2,$movie_id3,$movie_id4,$movie_id5,
-            $movie_id6,$movie_id7,$movie_id8,$movie_id9,$movie_id10);
-           
-            
-            $movie_id_array = array_unique($movie_arrays);
-            
-        }
+        echo "<table align='center' class='table'>";
+        echo "<thead><tr>
+          <th>Movie ID</th>
+          <th>Movie Name</th>
+          <th>Rating</th>
+        </tr></thead>";
+      while ($row = mysqli_fetch_array($result))
+      {
+        $movie_id = $row['movieId'];
+        $title = $row['Title'];
+        echo "<tr>";
+        echo "<td align='left'>".$movie_id."</td>";
+        echo "<td align='left'>".$title."</td>";
+        echo "<td align='left' ><input class='rating' name='rating' type='number' min='1' step='0.1' /></td>";
+        echo "</tr>";
         
-    //print_r( $movie_id_array);
-    echo "<table align='center' class='table'>";
-    echo "<thead><tr>
-      <th>Movie ID</th>
-      <th>Movie Name</th>
-      <th>Rating</th>
-      </tr></thead>";
-
-    foreach ($movie_id_array as &$movie) {
-     
-        $sql_subquery = "select movieId,title from links where movieId=".$movie.";";
-        $sub_result = $conn->query($sql_subquery);
-        if ($sub_result->num_rows > 0){
-          
-
-            while($sub_row = $sub_result->fetch_assoc() ){
-                $movieId = $sub_row["movieId"];
-                $title = $sub_row["title"];
-                echo "<tr>";
-                echo "<td align='left'>".$movieId."</td>";
-                echo "<td align='left'>".$title."</td>";
-                echo "<td align='left'id='rating_value' ><input class='rating' name='rating'  name='rating' type='number' min='1' step='0.1' /></td>";
-                echo "</tr>";
-            }
-           
-            }
-        }
-        echo"</table>";
+      }  
+      echo"</table>";
     }
-    else{
-        echo "0 results";
-    }
-      
-    $conn->close();
-
     
+    // if the id not exist
+    // show a message and clear inputs
+    else {
+        echo "No Results found";
+    }
+    
+    
+    mysqli_free_result($result);
+    mysqli_close($connect);
+    
+}
+
+// in the first time inputs are empty
+else{
+    echo "No Results found";
+}
+
+
 ?>
-</div>
-<div style="margin:10px;">
+<div style="margin:10px;margin-left:50px;padding-right:50px;">
+<button style="align:center;" class="btn btn-success btn-lg" onclick="window.location.href='home.php'"> Back</button>
+
 <button style="align:center;" class="btn btn-success btn-lg" onclick="exportTableToCSV('new_rating.csv',<?php echo $_SESSION["user_id"]; ?>)"> Save ratings to CSV File</button>
 </div>
+
 </div>
-        <!-- /.row -->
-       
-</div>
-    <!-- /.container -->
-
-
-
-
-
-
-    <!-- Footer -->
-    <footer class="py-4 bg-dark">
+   <!-- /.container -->
+ <!-- Footer -->
+ <footer class="py-4 bg-dark">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
         </div>
